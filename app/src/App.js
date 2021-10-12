@@ -1,18 +1,16 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
+import React from 'react'
+import '../src/styles/App.css'
+import PostItem from "./components/PostItem";
 
 // basic hooks
-// useState()
-// useEffect()
-// useRef()
-// useMemo()
-// useCallback()
-// useContext()
+
 
 function App() {
     return (
         <div className="App">
             {/*<Counter/>*/}
             {/*<ClassCounter/>*/}
+            <PostItem/>
         </div>
     );
 }
