@@ -10,7 +10,7 @@ function App() {
         <div className="App">
             {/*<Counter/>*/}
             {/*<ClassCounter/>*/}
-            <PostItem/>
+            <PostItem id={1} title={"JavaScript"} body={"JavaScript - язык програмирования."}/>
         </div>
     );
 }
