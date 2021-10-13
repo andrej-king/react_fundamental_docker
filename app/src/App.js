@@ -15,15 +15,27 @@ function App() {
         {id: "3", title: "Java", body: "Java - язык програмирования."},
     ])
 
+    const [title, setTitle] = useState('')
+    const addNewPost = (e) => {
+        e.preventDefault()
+        console.log(title)
+    }
+
     return (
         <div className="App">
             {/*<Counter/>*/}
             {/*<ClassCounter/>*/}
 
             <form>
-                <MyInput type="text" placeholder="Название поста" />
-                <MyInput type="text" placeholder="Описание поста" />
-                <MyButton>Создать пост</MyButton>
+                {/*Управляемый компонент*/}
+                <MyInput
+                    value={title}
+                    onChange={e => setTitle(e.target.value)} {/* Получение данных с управляемого инпута */}
+                    type="text"
+                    placeholder="Название поста"
+                />
+                <MyInput type="text" placeholder="Описание поста"/>
+                <MyButton onClick={addNewPost}>Создать пост</MyButton>
             </form>
 
             <PostList posts={posts} title={"Список постов"}/>
