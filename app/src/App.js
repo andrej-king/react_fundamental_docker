@@ -40,7 +40,9 @@ function App() {
                     type="text"
                     placeholder="Название поста"
                 />
+                {/*Неправляемый\Неконтролируемый компонент*/}
                 <MyInput
+                    ref={bodyInputRef} /*Использование ссылки в своем компоненте*/
                     type="text"
                     placeholder="Описание поста"
                 />
