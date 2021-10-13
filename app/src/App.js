@@ -16,12 +16,12 @@ function App() {
     ])
 
     const [title, setTitle] = useState('') /* Получение данных с управляемого инпута */
-    const bodyInputRef = useRef() /* Получение доступа напрямую к DOM элементу. Получение данных с неуправляемого инпута */
+    const [body, setBody] = useState('') /* Получение данных с управляемого инпута */
 
     const addNewPost = (e) => {
         e.preventDefault()
         console.log(title)
-        // console.log(bodyInputRef.current.value)
+        console.log(body)
     }
 
     return (
@@ -30,9 +30,6 @@ function App() {
             {/*<ClassCounter/>*/}
 
             <form>
-                {/*Неправляемый компонент*/}
-                {/*<input ref={bodyInputRef} type="text"/>*/}
-
                 {/*Управляемый компонент*/}
                 <MyInput
                     value={title}
@@ -40,9 +37,9 @@ function App() {
                     type="text"
                     placeholder="Название поста"
                 />
-                {/*Неправляемый\Неконтролируемый компонент*/}
                 <MyInput
-                    ref={bodyInputRef} /*Использование ссылки в своем компоненте*/
+                    value={body}
+                    onChange={e => setBody(e.target.value)}
                     type="text"
                     placeholder="Описание поста"
                 />
