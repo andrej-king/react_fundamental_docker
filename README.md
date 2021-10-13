@@ -20,3 +20,5 @@
 `useCallback()` \
 `useContext()`
 
+### Отладка для React
+[React Developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) расширение для браузера.

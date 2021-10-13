@@ -15,21 +15,14 @@ function App() {
         {id: "3", title: "Java", body: "Java - язык програмирования."},
     ])
 
-    const [title, setTitle] = useState('') /* Получение данных с управляемого инпута */
-    const [body, setBody] = useState('') /* Получение данных с управляемого инпута */
+    const [post, setPost] = useState({title: '', body: ''})
 
     const addNewPost = (e) => {
         e.preventDefault()
-        const newPost = {
-            id: Date.now(),
-            title,
-            body
-        }
-        setPosts([...posts, newPost]) /* Развернуть текущий массив и в конец добавить новый элемент. */
+        setPosts([...posts, {...post, id: Date.now()}]) /* Развернуть текущий массив и в конец добавить новый элемент. */
 
         /* Очистить инпуты */
-        setTitle('')
-        setBody('')
+        setPost({title: '', body: ''})
     }
 
     return (
@@ -40,14 +33,14 @@ function App() {
             <form>
                 {/*Управляемый компонент*/}
                 <MyInput
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    value={post.title}
+                    onChange={e => setPost({...post, title: e.target.value})}
                     type="text"
                     placeholder="Название поста"
                 />
                 <MyInput
-                    value={body}
-                    onChange={e => setBody(e.target.value)}
+                    value={post.body}
+                    onChange={e => setPost({...posts, body: e.target.value})}
                     type="text"
                     placeholder="Описание поста"
                 />
