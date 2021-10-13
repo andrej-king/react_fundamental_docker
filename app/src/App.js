@@ -3,6 +3,7 @@ import '../src/styles/App.css'
 import PostItem from "./components/PostItem";
 import PostList from "./components/PostList";
 import MyButton from './components/UI/button/MyButton'
+import MyInput from './components/UI/input/MyInput'
 
 // basic hooks
 
@@ -20,8 +21,8 @@ function App() {
             {/*<ClassCounter/>*/}
 
             <form>
-                <input type="text" placeholder="Название поста" />
-                <input type="text" placeholder="Описание поста" />
+                <MyInput type="text" placeholder="Название поста" />
+                <MyInput type="text" placeholder="Описание поста" />
                 <MyButton>Создать пост</MyButton>
             </form>
 
