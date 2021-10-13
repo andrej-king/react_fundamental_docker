@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import '../src/styles/App.css'
 import PostItem from "./components/PostItem";
 import PostList from "./components/PostList";
+import MyButton from './components/UI/button/MyButton'
 
 // basic hooks
 
@@ -17,6 +18,12 @@ function App() {
         <div className="App">
             {/*<Counter/>*/}
             {/*<ClassCounter/>*/}
+
+            <form>
+                <input type="text" placeholder="Название поста" />
+                <input type="text" placeholder="Описание поста" />
+                <MyButton>Создать пост</MyButton>
+            </form>
 
             <PostList posts={posts} title={"Список постов"}/>
 
