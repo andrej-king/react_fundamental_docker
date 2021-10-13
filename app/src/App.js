@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import '../src/styles/App.css'
 import PostItem from "./components/PostItem";
 import PostList from "./components/PostList";
@@ -15,10 +15,13 @@ function App() {
         {id: "3", title: "Java", body: "Java - язык програмирования."},
     ])
 
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('') /* Получение данных с управляемого инпута */
+    const bodyInputRef = useRef() /* Получение доступа напрямую к DOM элементу. Получение данных с неуправляемого инпута */
+
     const addNewPost = (e) => {
         e.preventDefault()
         console.log(title)
+        // console.log(bodyInputRef.current.value)
     }
 
     return (
@@ -27,14 +30,20 @@ function App() {
             {/*<ClassCounter/>*/}
 
             <form>
+                {/*Неправляемый компонент*/}
+                {/*<input ref={bodyInputRef} type="text"/>*/}
+
                 {/*Управляемый компонент*/}
                 <MyInput
                     value={title}
-                    onChange={e => setTitle(e.target.value)} {/* Получение данных с управляемого инпута */}
+                    onChange={e => setTitle(e.target.value)}
                     type="text"
                     placeholder="Название поста"
                 />
-                <MyInput type="text" placeholder="Описание поста"/>
+                <MyInput
+                    type="text"
+                    placeholder="Описание поста"
+                />
                 <MyButton onClick={addNewPost}>Создать пост</MyButton>
             </form>
 
