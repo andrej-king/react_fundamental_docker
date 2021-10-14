@@ -25,3 +25,6 @@
 
 ### Стилизация
 [React Transition Group](https://reactcommunity.org/react-transition-group/) Библиотека для анимирования элементов.
+
+### Css модули для изоляции стилей
+`Button.module.css` Пример названия файла, для изолированных стилей
