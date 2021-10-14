@@ -2,21 +2,27 @@ import React from 'react';
 import '../src/styles/App.css';
 import {
     BrowserRouter as Router,
-    Route
+    Switch,
+    Route,
+    Redirect
 } from "react-router-dom";
 import About from './pages/About'
 import Posts from './pages/Posts'
+import Navbar from './components/UI/navbar/Navbar'
 
 function App() {
     return (
         <Router>
-            <Route path="/about">
-                <About/>
-            </Route>
-            <Route path="/posts">
-                <Posts/>
-            </Route>
-
+            <Navbar/>
+            <Switch>
+                <Route path="/about">
+                    <About/>
+                </Route>
+                <Route path="/posts">
+                    <Posts/>
+                </Route>
+                <Redirect to='/posts'/>
+            </Switch>
         </Router>
     )
 }
