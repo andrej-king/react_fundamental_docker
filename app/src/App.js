@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {usePosts} from "./hooks/usePosts"
 import '../src/styles/App.css';
-import axios from "axios";
+import PostService from "./API/PostService";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
@@ -26,8 +26,8 @@ function App() {
 
     // получить посты у тестового API (асинхронно)
     async function fetchPosts() {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts")
-        setPosts(response.data)
+        const posts = await PostService.getAll()
+        setPosts(posts)
     }
 
     // Получаем post из дочернего элемента
@@ -39,7 +39,7 @@ function App() {
         <div className="App">
             {/*<Counter/>*/}
             {/*<ClassCounter/>*/}
-            
+
             <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
                 Создать пост
             </MyButton>
