@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {usePosts} from "./hooks/usePosts"
 import '../src/styles/App.css';
 import axios from "axios";
@@ -13,6 +13,11 @@ function App() {
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+
+    // будет вызван 1 раз, при первичной отрисовке компонента.
+    useEffect(() => {
+        fetchPosts()
+    }, [])
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
@@ -34,8 +39,7 @@ function App() {
         <div className="App">
             {/*<Counter/>*/}
             {/*<ClassCounter/>*/}
-            <button onClick={fetchPosts}>GET POSTS</button>
-
+            
             <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
                 Создать пост
             </MyButton>
