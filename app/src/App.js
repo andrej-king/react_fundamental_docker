@@ -9,7 +9,6 @@ import MyButton from './components/UI/button/MyButton'
 
 function App() {
     const [posts, setPosts] = useState([])
-
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
