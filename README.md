@@ -26,5 +26,8 @@
 ### Стилизация
 [React Transition Group](https://reactcommunity.org/react-transition-group/) Библиотека для анимирования элементов.
 
+### Роунтинг
+[React Router Dom](https://reactrouter.com/web/guides/quick-start) Постраничная навигация в браузере.
+
 ### Css модули для изоляции стилей
 `Button.module.css` Пример названия файла, для изолированных стилей
