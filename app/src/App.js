@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {usePosts} from "./hooks/usePosts"
+import {useFetching} from "./hooks/useFetching"
 import '../src/styles/App.css';
 import PostService from "./API/PostService";
 import PostList from "./components/PostList";
@@ -14,7 +15,12 @@ function App() {
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
-    const [isPostsLoading, setIsPostsLoading] = useState(false)
+
+    // получить посты у тестового API (асинхронно)
+    const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+        const posts = await PostService.getAll()
+        setPosts(posts)
+    })
 
     // будет вызван 1 раз, при первичной отрисовке компонента.
     useEffect(() => {
@@ -24,16 +30,6 @@ function App() {
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
         setModal(false)
-    }
-
-    // получить посты у тестового API (асинхронно)
-    async function fetchPosts() {
-        setIsPostsLoading(true)
-        setTimeout(async () => {
-            const posts = await PostService.getAll()
-            setPosts(posts)
-            setIsPostsLoading(false)
-        }, 1000)
     }
 
     // Получаем post из дочернего элемента
@@ -62,6 +58,9 @@ function App() {
                 filter={filter}
                 setFilter={setFilter}
             />
+            {postError &&
+                <h1>Произошла ошибка ${postError}</h1>
+            }
             {isPostsLoading
                 ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
                 : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Список постов"}/>
