@@ -9,7 +9,8 @@ import PostFilter from "./components/PostFilter";
 import MyModal from './components/UI/modal/MyModal'
 import MyButton from './components/UI/button/MyButton'
 import Loader from './components/UI/loader/Loader'
-import {getPageCount, getPagesArray} from "./utils/pages";
+import Pagination from './components/UI/pagination/Pagination'
+import {getPageCount} from "./utils/pages";
 
 function App() {
     const [posts, setPosts] = useState([])
@@ -19,7 +20,6 @@ function App() {
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
-    let pagesArray = getPagesArray(totalPages)
 
     // получить посты у тестового API (асинхронно)
     const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
@@ -77,18 +77,7 @@ function App() {
                 ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
                 : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Список постов"}/>
             }
-
-            <div className="page__wrapper">
-                {pagesArray.map(p =>
-                    <span
-                        onClick={() => changePage(p)}
-                        key={p}
-                        className={page === p ? 'page page__current' : 'page'}
-                    >
-                        {p}
-                    </span>
-                )}
-            </div>
+            <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
         </div>
     );
 }
