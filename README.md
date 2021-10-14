@@ -22,3 +22,6 @@
 
 ### Отладка для React
 [React Developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) расширение для браузера.
+
+### Стилизация
+[React Transition Group](https://reactcommunity.org/react-transition-group/) Библиотека для анимирования элементов.

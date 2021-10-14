@@ -1,5 +1,6 @@
 import React from 'react';
 import PostItem from "./PostItem";
+import {TransitionGroup, CSSTransition} from "react-transition-group"
 
 const PostList = ({posts, title, remove}) => {
     if (!posts.length) {
@@ -12,11 +13,22 @@ const PostList = ({posts, title, remove}) => {
 
     return (
         <div>
-            <h1 style={{textAlign: 'center'}}>{title}</h1>
-            {posts.map((post, index) =>
-                /* Прокидывание callback функции "remove" на уровень выше */
-                <PostItem remove={remove} number={index + 1} post={post} key={post.id}/>
-            )}
+            <h1 style={{textAlign: 'center'}}>
+                {title}
+            </h1>
+            {/* Анимация библиотеки React Transition Group */}
+            <TransitionGroup>
+                {posts.map((post, index) =>
+                    <CSSTransition
+                        key={post.id}
+                        timeout={500}
+                        classNames="post"
+                    >
+                        {/* Прокидывание callback функции "remove" на уровень выше */}
+                        <PostItem remove={remove} number={index + 1} post={post} />
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         </div>
     );
 };
