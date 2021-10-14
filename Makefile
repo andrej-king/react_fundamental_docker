@@ -1,6 +1,7 @@
 init: docker-down-clear \
-	docker-build docker-up \
-	frontend-init
+	docker-build \
+	frontend-init \
+	docker-up
 
 up: docker-up
 down: docker-down
