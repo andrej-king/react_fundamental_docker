@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import About from './pages/About'
 import Posts from './pages/Posts'
+import Error from './pages/Error'
 import Navbar from './components/UI/navbar/Navbar'
 
 function App() {
@@ -21,7 +22,10 @@ function App() {
                 <Route path="/posts">
                     <Posts/>
                 </Route>
-                <Redirect to='/posts'/>
+                <Route path="/error">
+                    <Error/>
+                </Route>
+                <Redirect to='/error'/>
             </Switch>
         </Router>
     )
