@@ -18,7 +18,7 @@
 `useMemo(callback, deps)` Кеширует данные, пока не измениться какой-либо из параметров \
 `useEffect(callback, deps)` Следит за стадиями компонентов (mount, update, unmount). Пустым массивом deps, функция отработает 1 раз, если передать параметр функция будет следить за изменениями и при изменениях будет срабатывать, если deps пустой массив но внутри callback есть return, функция отработает в конце (unmount).\
 `useCallback()` \
-`useContext()`
+`useContext()` Глобальное хранилище (доступ из любого компонента).
 
 ### Отладка для React
 [React Developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) расширение для браузера.
