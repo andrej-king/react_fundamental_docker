@@ -6,9 +6,15 @@ import {
 } from "react-router-dom";
 import {publicRoutes, privateRoutes} from '../router/routes'
 import {AuthContext} from '../context'
+import Loader from './UI/loader/Loader'
 
 const AppRouter = () => {
-    const {isAuth} = useContext(AuthContext)
+    const {isAuth, isLoading} = useContext(AuthContext)
+
+    // Отображение loader пока идут проверки авторизации (чтоб небыло лишних редиректов)
+    if (isLoading) {
+        return <Loader/>
+    }
 
     return (
         isAuth
