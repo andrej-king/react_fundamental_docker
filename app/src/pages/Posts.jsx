@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {usePosts} from "../hooks/usePosts"
 import {useFetching} from "../hooks/useFetching"
+import {useObserver} from "../hooks/useObserver"
 import PostService from "../API/PostService";
 import PostList from "../components/PostList";
 import PostForm from "../components/PostForm";
@@ -20,7 +21,6 @@ function Posts() {
     const [page, setPage] = useState(1)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
     const lastElement = useRef()
-    const observer = useRef()
 
     // получить посты у тестового API (асинхронно)
     const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
@@ -31,18 +31,9 @@ function Posts() {
     })
 
     // Динамическая подгрузка следующей порции страниц когда отслеживаемый элемент в зоне видимости
-    useEffect(() => {
-        if (isPostsLoading) return;
-        if (observer.current) observer.current.disconnect();
-        let callback = (entries, observer) => {
-            if (entries[0].isIntersecting && page < totalPages) {
-                setPage(page + 1)
-            }
-
-        }
-        observer.current = new IntersectionObserver(callback)
-        observer.current.observe(lastElement.current)
-    }, [isPostsLoading])
+    useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+        setPage(page + 1)
+    })
 
     // будет вызван 1 раз, при первичной отрисовке компонента.
     useEffect(() => {
