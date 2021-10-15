@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import {useFetching} from "../hooks/useFetching"
 import PostService from '../API/PostService'
 import Loader from '../components/UI/loader/Loader'
+import ChangePageTitle from '../components/ChangePageTitle'
 
 const PostIdPage = () => {
     const params = useParams()
@@ -23,7 +24,7 @@ const PostIdPage = () => {
     }, [])
 
     return (
-        <div>
+        <div className="App">
             <h1>Вы открыли страницу поста с ID = {params.id}</h1>
             {isLoading
                 ? <Loader/>
@@ -35,6 +36,7 @@ const PostIdPage = () => {
             {isCommentLoading
                 ? <Loader/>
                 : <div>
+                    <ChangePageTitle titleName={post.title}/>
                     {comments.map(comm =>
                         <div key={comm.id} style={{marginTop: 15, width: 800}}>
                             <h5>{comm.email}</h5>

@@ -11,6 +11,7 @@ import MyButton from '../components/UI/button/MyButton'
 import MySelect from '../components/UI/select/MySelect'
 import Loader from '../components/UI/loader/Loader'
 import Pagination from '../components/UI/pagination/Pagination'
+import ChangePageTitle from '../components/ChangePageTitle'
 import {getPageCount} from "../utils/pages";
 
 function Posts() {
@@ -57,6 +58,7 @@ function Posts() {
 
     return (
         <div className="App">
+            <ChangePageTitle titleName="Posts"/>
             <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
                 Создать пост
             </MyButton>

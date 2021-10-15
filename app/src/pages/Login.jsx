@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import MyInput from '../components/UI/input/MyInput'
 import MyButton from '../components/UI/button/MyButton'
 import {AuthContext} from '../context'
+import ChangePageTitle from '../components/ChangePageTitle'
 
 const Login = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
@@ -12,7 +13,8 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="App">
+            <ChangePageTitle titleName="Login"/>
             <h1>Страница для логина</h1>
             <form onSubmit={login}>
                 <MyInput type="text" placeholder="Введите логин"/>
