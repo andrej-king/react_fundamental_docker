@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {usePosts} from "../hooks/usePosts"
 import {useFetching} from "../hooks/useFetching"
 import PostService from "../API/PostService";
@@ -19,19 +19,35 @@ function Posts() {
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+    const lastElement = useRef()
+    const observer = useRef()
 
     // получить посты у тестового API (асинхронно)
     const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
         const response = await PostService.getAll(limit, page)
-        setPosts(response.data)
+        setPosts([...posts, ...response.data])
         const totalCount = response.headers['x-total-count']
         setTotalPages(getPageCount(totalCount, limit))
     })
 
+    // Динамическая подгрузка следующей порции страниц когда отслеживаемый элемент в зоне видимости
+    useEffect(() => {
+        if (isPostsLoading) return;
+        if (observer.current) observer.current.disconnect();
+        let callback = (entries, observer) => {
+            if (entries[0].isIntersecting && page < totalPages) {
+                setPage(page + 1)
+            }
+
+        }
+        observer.current = new IntersectionObserver(callback)
+        observer.current.observe(lastElement.current)
+    }, [isPostsLoading])
+
     // будет вызван 1 раз, при первичной отрисовке компонента.
     useEffect(() => {
         fetchPosts(limit, page)
-    }, [])
+    }, [page])
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
@@ -45,7 +61,6 @@ function Posts() {
 
     const changePage = (page) => {
         setPage(page)
-        fetchPosts(limit, page)
     }
 
     return (
@@ -69,11 +84,12 @@ function Posts() {
             {postError &&
             <h1>Произошла ошибка ${postError}</h1>
             }
-            {isPostsLoading
-                ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
-                : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Список постов"}/>
+            <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Список постов"}/>
+            <div ref={lastElement} style={{height: 20, background: 'transparent'}} />
+            {isPostsLoading &&
+                <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
             }
-            <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
+            {/*<Pagination page={page} changePage={changePage} totalPages={totalPages}/>*/}
         </div>
     );
 }
